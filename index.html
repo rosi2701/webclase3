@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <title>Datos e información en gráficas</title>
+        <style>
+            body {
+                font-family: Helvetica, Arial, sans-serif;
+                text-align: center;
+            }
+
+            div {
+                width: min(95%, 500px);
+                margin: 2vh auto 5vh auto;
+            }
+
+            svg {
+                margin: 1rem;
+            }
+
+            p {
+                margin: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+
+            <!-- GRÁFICA 1: ícono recortado con imagen de fondo -->
+            <svg viewBox="-4 0 25 15">
+                <defs>
+                    <!-- clipPath define la silueta que recorta la imagen -->
+                    <clipPath id="recorte">
+                        <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z" />
+                    </clipPath>
+                </defs>
+                <!-- La imagen se muestra recortada con la forma del path -->
+                <image height="100%" width="100%" href="platuka.png" clip-path="url(#recorte)" />
+            </svg>
+
+            <p>
+                Usando <a href="https://www.guemil.info/" target="_blank">Guemil</a> para una doble representación:
+                el <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths" target="_blank">path</a> que recorta es una representación,
+                y la <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/image" target="_blank">image</a> recortada es otra.
+            </p>
+
+            <!-- GRÁFICA 2: gráfico de dona (donut chart) -->
+            <svg viewBox="0 0 42 42">
+                <!-- Círculo de fondo (gris) -->
+                <circle cx="21" cy="21" r="15.9" fill="#fff" stroke="#ddd" stroke-width="2"></circle>
+
+                <!-- Arco naranja que representa el 79% -->
+                <!-- stroke-dasharray="79 21" significa: 79 partes rellenas, 21 vacías -->
+                <!-- stroke-dashoffset="25" rota el arco para que parta desde arriba -->
+                <circle cx="21" cy="21" r="15.9" fill="transparent" stroke="#FE4300" stroke-width="2" stroke-dasharray="26.6 73.4" stroke-dashoffset="25"></circle>
+
+                <!-- Texto del porcentaje -->
+                <text x="50%" y="29" dominant-baseline="middle" text-anchor="middle" font-size="6" fill="#FE4300">26,6%</text>
+
+                <!-- Ícono de salida de emergencia (Guemil) -->
+                <image x="15" y="10" width="12" height="12" href="dolarsvg.svg" />
+            </svg>
+
+            <p>
+                El 26,6% de las personas con empleo tienen ingresos de $1.000.000 o más al mes. Si se aproxima a 2 de cada 10, el dato también se puede mostrar así:
+            </p>
+
+            <!-- GRÁFICA 3: gráfico de pictogramas (se dibuja con JavaScript) -->
+            <svg viewBox="0 0 160 16" id="personas"></svg>
+
+            <p>En la presentación anterior se usó un <a href="https://datavizcatalogue.com/ES/metodos/grafico_de_pictogramas.html" target="_blank">gráfico de pictogramas</a>.</p>
+
+        </div>
+
+        <script>
+            // Dibujamos 10 íconos de persona, uno por cada unidad
+            for (var i = 0; i < 10; i++) {
+
+                // Los primeros 8 van en naranja (representan el 82% ≈ 8 de 10)
+                // Los últimos 2 van en gris
+                var color = (i < 2) ? "#FE4300" : "#ddd";
+
+                // Cada ícono se desplaza hacia la derecha con translate
+                document.querySelector("#personas").innerHTML +=
+                    `<path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z" fill="${color}" transform="translate(${i * 16} 0)" />`;
+
+            }
+        </script>
+    </body>
+</html>
